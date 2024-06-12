@@ -1,0 +1,30 @@
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+def bst_from_preorder(preorder):
+    def helper(lower=float('-inf'), upper=float('inf')):
+        nonlocal idx
+        if idx == len(preorder):
+            return None
+        val = preorder[idx]
+        if val < lower or val > upper:
+            return None       
+        idx += 1
+        root = TreeNode(val)
+        root.left = helper(lower, val)
+        root.right = helper(val, upper)
+        return root
+    
+    idx = 0
+    return helper()
+def print_inorder(node):
+    if node:
+        print_inorder(node.left)
+        print(node.val, end=' ')
+        print_inorder(node.right)
+preorder1 = [8, 5, 1, 7, 10, 12]
+bst1 = bst_from_preorder(preorder1)
+print("Inorder traversal of BST from preorder1:")
+print_inorder(bst1)
