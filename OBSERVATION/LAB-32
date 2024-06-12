@@ -1,0 +1,12 @@
+def string_shift(s, shift):
+    net_shift = 0
+    for direction, amount in shift:
+        if direction == 0:
+            net_shift -= amount
+        else:
+            net_shift += amount
+    net_shift %= len(s)
+    return s[-net_shift:] + s[:-net_shift] if net_shift != 0 else s
+
+print(string_shift("abc", [[0, 1], [1, 2]]))
+print(string_shift("abcdefg", [[1, 1], [1, 1], [0, 2], [1, 3]]))
