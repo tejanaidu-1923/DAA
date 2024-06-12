@@ -1,0 +1,26 @@
+def minimizeCost(s):
+    res = []
+    last_seen = {}
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    
+    for char in s:
+        if char == '?':
+            min_cost_char = None
+            min_cost = float('inf')
+            
+            for letter in alphabet:
+                cost = last_seen.get(letter, 0)
+                if cost < min_cost:
+                    min_cost = cost
+                    min_cost_char = letter
+            
+            res.append(min_cost_char)
+            last_seen[min_cost_char] = last_seen.get(min_cost_char, 0) + 1
+        else:
+            res.append(char)
+            last_seen[char] = last_seen.get(char, 0) + 1
+    
+    return ''.join(res)
+
+s = "a?b?c?"
+print(minimizeCost(s))
