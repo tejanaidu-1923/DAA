@@ -1,0 +1,19 @@
+def maxSubArray(nums):
+    max_current = max_global = nums[0]
+    for num in nums[1:]:
+        max_current = max(num, max_current + num)
+        if max_current > max_global:
+            max_global = max_current
+    return max_global
+
+def maxSubarraySumCircular(nums):
+    total_sum = sum(nums)
+    max_kadane = maxSubArray(nums)
+    min_kadane = -maxSubArray([-num for num in nums])
+    
+    if min_kadane == total_sum:
+        return max_kadane
+    
+    return max(max_kadane, total_sum + min_kadane)
+nums = [1, -2, 3, -2]
+print(maxSubarraySumCircular(nums))
