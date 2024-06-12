@@ -1,0 +1,16 @@
+def master_theorem(n):
+    if n == 1:
+        return 1
+    return 2 * master_theorem(n // 2) + n 
+def substitution_method(n):
+    if n == 1:
+        return 1
+    return substitution_method(n - 1) + 1 
+def iteration_method(n):
+    if n == 1:
+        return 1
+    return 2 * iteration_method(n // 2) + n 
+
+print(master_theorem(8)) 
+print(substitution_method(5)) 
+print(iteration_method(8)) 
