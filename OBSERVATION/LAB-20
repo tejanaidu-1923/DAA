@@ -1,0 +1,18 @@
+def sort_even_odd(nums):
+    odds = [num for num in nums if num % 2 != 0]
+    evens = [num for num in nums if num % 2 == 0]
+    odds.sort()
+    evens.sort()
+    result = [0] * len(nums)
+    o = e = 0
+    for i in range(len(nums)):
+        if i % 2 == 0:
+            result[i] = evens[e]
+            e += 1
+        else:
+            result[i] = odds[o]
+            o += 1
+    return result
+
+nums = [4, 2, 5, 7]
+print(sort_even_odd(nums))
