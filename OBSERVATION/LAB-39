@@ -1,0 +1,23 @@
+MOD = 10**9 + 7
+
+def number_ways(hats):
+    from collections import defaultdict
+    dp = defaultdict(int)
+    dp[0] = 1
+    all_mask = (1 << len(hats)) - 1
+    hat_to_people = defaultdict(list)
+    
+    for i, hat_list in enumerate(hats):
+        for hat in hat_list:
+            hat_to_people[hat].append(i)
+    for hat in range(1, 41):
+        new_dp = dp.copy()
+        for mask, ways in dp.items():
+            for person in hat_to_people[hat]:
+                if mask & (1 << person) == 0:
+                    new_dp[mask | (1 << person)] = (new_dp[mask | (1 << person)] + ways) % MOD
+        dp = new_dp
+    return dp[all_mask]
+print(number_ways([[3, 4], [4, 5], [5]]))
+print(number_ways([[3, 5, 1], [3, 5]]))
+print(number_ways([[1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4]]))
