@@ -1,0 +1,21 @@
+class BinaryMatrix:
+    def __init__(self, mat):
+        self.mat = mat  
+    def get(self, row, col):
+        return self.mat[row][col]    
+    def dimensions(self):
+        return [len(self.mat), len(self.mat[0])]
+def leftmost_column_with_one(binaryMatrix):
+    rows, cols = binaryMatrix.dimensions()
+    current_row, current_col = 0, cols - 1
+    leftmost = -1 
+    while current_row < rows and current_col >= 0:
+        if binaryMatrix.get(current_row, current_col) == 1:
+            leftmost = current_col
+            current_col -= 1
+        else:
+            current_row += 1
+    return leftmost
+print(leftmost_column_with_one(BinaryMatrix([[0, 0], [1, 1]])))
+print(leftmost_column_with_one(BinaryMatrix([[0, 0], [0, 1]])))
+print(leftmost_column_with_one(BinaryMatrix([[0, 0], [0, 0]])))
