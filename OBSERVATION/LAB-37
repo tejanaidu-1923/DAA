@@ -1,0 +1,15 @@
+def max_diff(num):
+    s = str(num)
+    a = s
+    b = s
+    for digit in s:
+        if digit != '9':
+            a = s.replace(digit, '9')
+            break
+    for digit in s:
+        if digit != '1':
+            b = s.replace(digit, '0' if digit == s[0] else '1')
+            break
+    return int(a) - int(b)
+print(max_diff(555))
+print(max_diff(9))
