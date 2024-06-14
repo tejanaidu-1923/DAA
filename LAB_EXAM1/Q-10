@@ -1,0 +1,8 @@
+import itertools
+def get_permutation(n, k):
+    permutations = itertools.permutations(range(1, n + 1))
+    kth_permutation = next(itertools.islice(permutations, k - 1, k))
+    return ''.join(map(str, kth_permutation))
+n = 3
+k = 4
+print(get_permutation(n, k))
