@@ -1,0 +1,21 @@
+from itertools import combinations
+def meet_in_the_middle(arr, target):
+    def get_subsets(arr):
+        return [(sum(combo), combo) for i in range(len(arr) + 1) for combo in combinations(arr, i)]
+
+    n = len(arr)
+    left_part, right_part = arr[:n // 2], arr[n // 2:]
+    
+    left_subsets = get_subsets(left_part)
+    right_subsets = get_subsets(right_part)
+    right_map = {s: combo for s, combo in right_subsets}
+
+    for left_sum, left_combo in left_subsets:
+        if target - left_sum in right_map:
+            return left_combo + right_map[target - left_sum]
+    
+    return None
+arr = [3, 34, 4, 12, 5, 2]
+target = 9
+result = meet_in_the_middle(arr, target)
+print(result)
