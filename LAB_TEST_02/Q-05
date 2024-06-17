@@ -1,0 +1,28 @@
+import numpy as np
+def strassen(a, b):
+    if a.shape[0] == 1:
+        return a * b
+    mid = a.shape[0] // 2
+    a11, a12 = a[:mid, :mid], a[:mid, mid:]
+    a21, a22 = a[mid:, :mid], a[mid:, mid:]
+    b11, b12 = b[:mid, :mid], b[:mid, mid:]
+    b21, b22 = b[mid:, :mid], b[mid:, mid:]
+    
+    p1 = strassen(a11, b12 - b22)
+    p2 = strassen(a11 + a12, b22)
+    p3 = strassen(a21 + a22, b11)
+    p4 = strassen(a22, b21 - b11)
+    p5 = strassen(a11 + a22, b11 + b22)
+    p6 = strassen(a12 - a22, b21 + b22)
+    p7 = strassen(a11 - a21, b11 + b12)
+    
+    c11 = p5 + p4 - p2 + p6
+    c12 = p1 + p2
+    c21 = p3 + p4
+    c22 = p1 + p5 - p3 - p7
+    
+    c = np.vstack((np.hstack((c11, c12)), np.hstack((c21, c22))))
+    return c
+a = np.array([[1, 2], [3, 4]])
+b = np.array([[5, 6], [7, 8]])
+print(strassen(a, b))
