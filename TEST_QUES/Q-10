@@ -1,0 +1,13 @@
+def four_sum(nums, target):
+    result = []
+    n = len(nums)
+    for a in range(n):
+        for b in range(a+1, n):
+            for c in range(b+1, n):
+                for d in range(c+1, n):
+                    if nums[a] + nums[b] + nums[c] + nums[d] == target:
+                        result.append([nums[a], nums[b], nums[c], nums[d]])
+    return result
+nums1 = [1, 0, -1, 0, -2, 2]
+target1 = 0
+print(four_sum(nums1, target1))
