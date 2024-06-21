@@ -1,0 +1,26 @@
+def min_operations(arr1, arr2):
+    arr2.sort()
+    memo = {}
+    def helper(i, prev):
+        if i == len(arr1):
+            return 0
+        if (i, prev) in memo:
+            return memo[(i, prev)]
+
+        res = float('inf')
+        if arr1[i] > prev:
+            res = helper(i + 1, arr1[i])
+        idx = bisect_right(arr2, prev)
+        if idx < len(arr2):
+            res = min(res, 1 + helper(i + 1, arr2[idx]))
+
+        memo[(i, prev)] = res
+        return res
+
+    result = helper(0, -1)
+    return result if result != float('inf') else -1
+
+from bisect import bisect_right
+arr1 = [1, 5, 3, 6, 7]
+arr2 = [1, 3, 2, 4]
+print(min_operations(arr1, arr2))
