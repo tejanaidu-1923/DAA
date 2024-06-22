@@ -1,0 +1,8 @@
+def majority_element(nums):
+    counts = {}
+    for num in nums:
+        counts[num] = counts.get(num, 0) + 1
+        if counts[num] > len(nums) // 2:
+            return num
+nums = [3, 2, 3]
+print(majority_element(nums))
