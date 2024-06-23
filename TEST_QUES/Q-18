@@ -1,0 +1,10 @@
+def group_anagrams(strs):
+    grouped_anagrams = {}
+    
+    for word in strs:
+        key = tuple(sorted(word))
+        grouped_anagrams[key] = grouped_anagrams.get(key, []) + [word]
+    
+    return list(grouped_anagrams.values())
+strs2 = ["eat", "tea", "tan", "ate", "nat", "bat"]
+print(group_anagrams(strs2))
