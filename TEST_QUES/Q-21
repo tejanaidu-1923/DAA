@@ -1,0 +1,51 @@
+def count_good_strings(n, s1, s2, evil):
+    MOD = 10**9 + 7
+
+    def kmp_table(pattern):
+        table = [0] * len(pattern)
+        j = 0
+        for i in range(1, len(pattern)):
+            while j > 0 and pattern[i] != pattern[j]:
+                j = table[j - 1]
+            if pattern[i] == pattern[j]:
+                j += 1
+            table[i] = j
+        return table
+
+    kmp = kmp_table(evil)
+
+    def dp(pos, match_len, bound, tight_s1, tight_s2):
+        if match_len == len(evil):
+            return 0
+        if pos == n:
+            return 1
+        if (pos, match_len, bound, tight_s1, tight_s2) in memo:
+            return memo[(pos, match_len, bound, tight_s1, tight_s2)]
+
+        low = ord(s1[pos]) if tight_s1 else ord('a')
+        high = ord(s2[pos]) if tight_s2 else ord('z')
+        total = 0
+
+        for ch in range(low, high + 1):
+            new_match_len = match_len
+            while new_match_len > 0 and evil[new_match_len] != chr(ch):
+                new_match_len = kmp[new_match_len - 1]
+            if chr(ch) == evil[new_match_len]:
+                new_match_len += 1
+            new_tight_s1 = tight_s1 and ch == ord(s1[pos])
+            new_tight_s2 = tight_s2 and ch == ord(s2[pos])
+            total = (total + dp(pos + 1, new_match_len, bound, new_tight_s1, new_tight_s2)) % MOD
+
+        memo[(pos, match_len, bound, tight_s1, tight_s2)] = total
+        return total
+
+    memo = {}
+    result = dp(0, 0, False, True, True)
+    return result
+
+n = 2
+s1 = "aa"
+s2 = "da"
+evil = "b"
+output = count_good_strings(n, s1, s2, evil)
+print(output)
