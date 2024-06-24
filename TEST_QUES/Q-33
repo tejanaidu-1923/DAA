@@ -1,0 +1,23 @@
+def updateMatrixAlternative(mat):
+    rows, cols = len(mat), len(mat[0])
+    max_dist = rows + cols
+    
+    for i in range(rows):
+        for j in range(cols):
+            if mat[i][j] != 0:
+                top = mat[i - 1][j] if i > 0 else max_dist
+                left = mat[i][j - 1] if j > 0 else max_dist
+                mat[i][j] = min(top, left) + 1
+    
+    for i in range(rows - 1, -1, -1):
+        for j in range(cols - 1, -1, -1):
+            if mat[i][j] != 0:
+                bottom = mat[i + 1][j] if i < rows - 1 else max_dist
+                right = mat[i][j + 1] if j < cols - 1 else max_dist
+                mat[i][j] = min(mat[i][j], min(bottom, right) + 1)
+    
+    return mat
+mat1 = [[0, 0, 0], [0, 1, 0], [0, 0, 0]]
+mat2 = [[0, 0, 0], [0, 1, 0], [1, 1, 1]]
+print(updateMatrixAlternative(mat1))
+print(updateMatrixAlternative(mat2))
