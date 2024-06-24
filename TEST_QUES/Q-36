@@ -1,0 +1,27 @@
+import bisect
+from functools import lru_cache
+
+def make_array_increasing(arr1, arr2):
+    arr2 = sorted(set(arr2))
+    
+    @lru_cache(None)
+    def dfs(i, prev):
+        if i == len(arr1):
+            return 0
+        
+        pos = bisect.bisect_right(arr2, prev)
+        min_operations = float('inf')
+        
+        if arr1[i] > prev:
+            min_operations = min(min_operations, dfs(i + 1, arr1[i]))
+        
+        if pos < len(arr2):
+            min_operations = min(min_operations, dfs(i + 1, arr2[pos]) + 1)
+        
+        return min_operations
+    
+    result = dfs(0, -float('inf'))
+    return result if result != float('inf') else -1
+arr1 = [1, 5, 3, 6, 7]
+arr2 = [1, 3, 2, 4]
+print(make_array_increasing(arr1, arr2))
