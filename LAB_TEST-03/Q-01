@@ -1,0 +1,31 @@
+import heapq
+
+def dijkstra_matrix(n, graph, source):
+    distances = [float('inf')] * n
+    distances[source] = 0
+    pq = [(0, source)]
+    
+    while pq:
+        current_distance, u = heapq.heappop(pq)
+        
+        if current_distance > distances[u]:
+            continue
+        
+        for v in range(n):
+            weight = graph[u][v]
+            if weight != float('inf'):
+                distance = current_distance + weight
+                if distance < distances[v]:
+                    distances[v] = distance
+                    heapq.heappush(pq, (distance, v))
+    
+    return distances
+n1 = 4
+graph1 = [
+    [0, 5, float('inf'), 10],
+    [float('inf'), 0, 3, float('inf')],
+    [float('inf'), float('inf'), 0, 1],
+    [float('inf'), float('inf'), float('inf'), 0]
+]
+source1 = 0
+print(dijkstra_matrix(n1, graph1, source1))
