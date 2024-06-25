@@ -1,0 +1,13 @@
+def group_anagrams(strs):
+    grouped_anagrams = {}
+    
+    for word in strs:
+        key = ''.join(sorted(word))
+        if key in grouped_anagrams:
+            grouped_anagrams[key].append(word)
+        else:
+            grouped_anagrams[key] = [word]
+    
+    return list(grouped_anagrams.values())
+strs2 = ["eat", "tea", "tan", "ate", "nat", "bat"]
+print(group_anagrams(strs2)) 
