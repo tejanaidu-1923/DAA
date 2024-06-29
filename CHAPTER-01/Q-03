@@ -1,0 +1,11 @@
+def distinct_count(nums):
+    result = 0
+    for i in range(len(nums)):
+        distinct_values = set()
+        for j in range(i, len(nums)):
+            distinct_values.add(nums[j])
+            result += len(distinct_values) ** 2
+    return result
+nums = [1, 2, 1]
+output = distinct_count(nums)
+print(output)
