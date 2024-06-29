@@ -1,0 +1,12 @@
+def find_most_frequent_element(input_list):
+    count_dict = {}
+    for num in input_list:
+        count_dict[num] = count_dict.get(num, 0) + 1
+    return max(count_dict, key=count_dict.get)
+test_case_1 = [1, 2, 3, 4, 5]
+test_case_2 = [7, 7, 7, 7, 7]
+test_case_3 = [-10, 2, 3, -4, 5]
+
+print(find_most_frequent_element(test_case_1)) 
+print(find_most_frequent_element(test_case_2))
+print(find_most_frequent_element(test_case_3))
