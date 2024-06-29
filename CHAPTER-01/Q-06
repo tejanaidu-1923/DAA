@@ -1,0 +1,8 @@
+def find_max_in_sorted_list(input_list):
+    if not input_list:
+        return None  
+    sorted_list = sorted(input_list, reverse=True) 
+    return sorted_list[0] 
+print(find_max_in_sorted_list([])) 
+print(find_max_in_sorted_list([5])) 
+print(find_max_in_sorted_list([3, 3, 3, 3, 3])) 
