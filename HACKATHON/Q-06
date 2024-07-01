@@ -1,0 +1,17 @@
+def find_kth_missing(arr, k):
+    seen = set(arr)
+    count = 0
+    num = 1
+
+    while True:
+        if num not in seen:
+            count += 1
+            if count == k:
+                return num
+        num += 1
+
+
+arr = [2, 3, 4, 7, 11]
+k = 5
+result = find_kth_missing(arr, k)
+print("The", k, "th missing positive integer is:", result)
