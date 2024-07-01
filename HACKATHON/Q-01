@@ -1,0 +1,25 @@
+def greedy_graph_coloring(vertices, edges):
+    
+    colors = {}
+    vertices_sorted = sorted(vertices, key=lambda v: len([e for e in edges if v in e]), reverse=True)
+    for v in vertices_sorted:
+
+        neighbor_colors = [colors.get(n) for e in edges if v in e for n in e if n != v] 
+        color = 0
+        while color in neighbor_colors:
+            color += 1
+
+ 
+        colors[v] = color
+
+    return colors
+
+
+vertices = [0, 1, 2, 3]
+edges = [(0, 1), (1, 2), (2, 3), (3, 0), (0, 2)]
+
+colors = greedy_graph_coloring(vertices, edges)
+
+print("Vertex Colors:")
+for v, color in colors.items():
+    print(f"Vertex {v}: Color {color}")
